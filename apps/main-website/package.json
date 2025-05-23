@@ -11,7 +11,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"dev:common": "npm run dev --workspace=@mikepeiman-portfolio/common",
+		"build:common": "npm run build --workspace=@mikepeiman-portfolio/common"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -32,6 +34,7 @@
 		"vite": "^6.2.6"
 	},
 	"dependencies": {
+		"@mikepeiman-portfolio/common": "workspace:*",
 		"@tailwindcss/vite": "^4.1.7",
 		"tailwindcss": "^4.1.7"
 	}
