@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { goto } from '$app/navigation';
 	import RadialPulse from '$lib/components/RadialPulse.svelte';
 	import OrbitalPulse from '$lib/components/OrbitalPulse.svelte';
 	import SpiralGalaxy from '$lib/components/SpiralGalaxy.svelte';
@@ -15,50 +16,62 @@
 		{
 			component: RadialPulse,
 			title: 'Radial Pulse',
-			description: 'Rings of dots pulsing outward from center'
+			description: 'Rings of dots pulsing outward from center',
+			slug: 'radial-pulse'
 		},
 		{
 			component: OrbitalPulse,
 			title: 'Orbital Pulse',
-			description: 'Concentric orbits with smooth pulsing effects'
+			description: 'Concentric orbits with smooth pulsing effects',
+			slug: 'orbital-pulse'
 		},
 		{
 			component: SpiralGalaxy,
 			title: 'Spiral Galaxy',
-			description: 'Rotating spiral galaxy with particle trails'
+			description: 'Rotating spiral galaxy with particle trails',
+			slug: 'spiral-galaxy'
 		},
 		{
 			component: PendulumWave,
 			title: 'Pendulum Wave',
-			description: 'Synchronized pendulum motion'
+			description: 'Synchronized pendulum motion',
+			slug: 'pendulum-wave'
 		},
-
 		{
 			component: PulsingGrid,
 			title: 'Pulsing Grid',
-			description: 'Breathing grid with wave effects'
+			description: 'Breathing grid with wave effects',
+			slug: 'pulsing-grid'
 		},
 		{
 			component: SequentialPulse,
 			title: 'Sequential Pulse',
-			description: 'Sequential pulsing dots around a circle'
+			description: 'Sequential pulsing dots around a circle',
+			slug: 'sequential-pulse'
 		},
 		{
 			component: OscillatingDots,
 			title: 'Oscillating Dots',
-			description: 'Vertical wave oscillations in rows'
+			description: 'Vertical wave oscillations in rows',
+			slug: 'oscillating-dots'
 		},
 		{
 			component: PulseWave,
 			title: 'Pulse Wave',
-			description: 'Concentric rings with wave oscillations'
+			description: 'Concentric rings with wave oscillations',
+			slug: 'pulse-wave'
 		},
 		{
 			component: ConcentricRings,
 			title: 'Concentric Rings',
-			description: 'Counter-rotating rings with enhanced pulsing'
+			description: 'Counter-rotating rings with enhanced pulsing',
+			slug: 'concentric-rings'
 		}
 	];
+
+	function navigateToAnimation(slug: string) {
+		goto(`/codepens/${slug}`);
+	}
 </script>
 
 <svelte:head>
@@ -69,229 +82,110 @@
 	/>
 </svelte:head>
 
-<div class="page-container">
-	<header class="page-header">
-		<h1>Circle Animations Collection N°2</h1>
-		<p>Interactive canvas animations with real-time parameter controls</p>
+<div class="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-7xl">
+		<!-- Header -->
+		<header class="mb-12 text-center">
+			<h1
+				class="mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-4xl font-bold tracking-wide text-transparent lg:text-5xl"
+			>
+				Circle Animations Collection N°2
+			</h1>
+			<p class="mb-2 text-lg text-gray-300">
+				Interactive canvas animations with real-time parameter controls
+			</p>
+			<p class="mb-8 text-sm italic text-gray-500">
+				Click any animation to view it with interactive controls
+			</p>
 
-		<div class="controls-toggle">
-			<label class="toggle-label">
-				<input type="checkbox" bind:checked={showControls} class="toggle-input" />
-				<span class="toggle-slider"></span>
-				<span class="toggle-text">Show Controls</span>
-			</label>
-		</div>
-	</header>
+			<!-- Controls Toggle -->
+			<div class="flex items-center justify-center gap-3">
+				<label class="flex cursor-pointer items-center gap-3 select-none">
+					<input type="checkbox" bind:checked={showControls} class="sr-only" />
+					<div class="relative">
+						<div
+							class="block h-6 w-11 rounded-full border border-white/30 bg-white/20 transition-all duration-300 {showControls
+								? 'bg-gradient-to-r from-purple-600 to-pink-600 border-purple-500'
+								: ''}"
+						></div>
+						<div
+							class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-300 {showControls
+								? 'translate-x-5'
+								: ''}"
+						></div>
+					</div>
+					<span class="text-sm font-medium uppercase tracking-wider text-gray-300">
+						Show Controls
+					</span>
+				</label>
+			</div>
+		</header>
 
-	<main class="animations-grid">
-		{#each animations as animation (animation.title)}
-			<div class="animation-card">
-				<svelte:component this={animation.component} {showControls} width={180} height={180} />
-				<div class="card-info">
-					<h3>{animation.title}</h3>
-					<p>{animation.description}</p>
+		<!-- Animation Grid -->
+		<main class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+			{#each animations as animation (animation.title)}
+				<button
+					class="group relative flex flex-col items-center rounded-xl border border-white/10 bg-black/30 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-white/30 hover:shadow-xl hover:shadow-black/50 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+					on:click={() => navigateToAnimation(animation.slug)}
+					type="button"
+				>
+					<!-- Animation Component -->
+					<div class="mb-4">
+						<svelte:component this={animation.component} {showControls} width={180} height={180} />
+					</div>
+
+					<!-- Card Info -->
+					<div class="text-center">
+						<h3 class="mb-2 text-base font-semibold uppercase tracking-wide text-white">
+							{animation.title}
+						</h3>
+						<p class="mb-3 text-sm leading-relaxed text-gray-400">
+							{animation.description}
+						</p>
+						<div
+							class="flex items-center justify-center gap-2 text-xs text-purple-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+						>
+							<span>Click to view with controls</span>
+							<svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 5l7 7-7 7"
+								></path>
+							</svg>
+						</div>
+					</div>
+				</button>
+			{/each}
+		</main>
+
+		<!-- Controls Info -->
+		{#if showControls}
+			<div class="fixed bottom-4 left-1/2 -translate-x-1/2 animate-fade-in-up">
+				<div
+					class="rounded-full border border-white/20 bg-black/80 px-5 py-3 text-sm text-gray-300 backdrop-blur-md"
+				>
+					💡 Use the control panels on the right to adjust animation parameters in real-time
 				</div>
 			</div>
-		{/each}
-	</main>
-
-	{#if showControls}
-		<div class="controls-info">
-			<p>💡 Use the control panels on the right to adjust animation parameters in real-time</p>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
 
 <style>
-	@import url('https://fonts.cdnfonts.com/css/thegoodmonolith');
-
-	:global(body) {
-		background: #000;
-		color: #f0f0f0;
-		font-family: 'TheGoodMonolith', monospace;
-		margin: 0;
-		padding: 0;
-	}
-
-	.page-container {
-		min-height: 100vh;
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.page-header {
-		text-align: center;
-		margin-bottom: 40px;
-		max-width: 800px;
-	}
-
-	.page-header h1 {
-		font-size: 2.5rem;
-		letter-spacing: 2px;
-		margin-bottom: 10px;
-		background: linear-gradient(45deg, #fff, #888);
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
-
-	.page-header p {
-		font-size: 1rem;
-		opacity: 0.8;
-		margin-bottom: 30px;
-	}
-
-	.controls-toggle {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-	}
-
-	.toggle-label {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		cursor: pointer;
-		user-select: none;
-	}
-
-	.toggle-input {
-		display: none;
-	}
-
-	.toggle-slider {
-		position: relative;
-		width: 50px;
-		height: 24px;
-		background: rgba(255, 255, 255, 0.2);
-		border-radius: 12px;
-		transition: all 0.3s ease;
-		border: 1px solid rgba(255, 255, 255, 0.3);
-	}
-
-	.toggle-slider::before {
-		content: '';
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 18px;
-		height: 18px;
-		background: white;
-		border-radius: 50%;
-		transition: all 0.3s ease;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	}
-
-	.toggle-input:checked + .toggle-slider {
-		background: linear-gradient(45deg, #667eea, #764ba2);
-		border-color: #667eea;
-	}
-
-	.toggle-input:checked + .toggle-slider::before {
-		transform: translateX(26px);
-	}
-
-	.toggle-text {
-		font-size: 0.9rem;
-		letter-spacing: 0.5px;
-		text-transform: uppercase;
-	}
-
-	.animations-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 30px;
-		max-width: 1200px;
-		width: 100%;
-	}
-
-	.animation-card {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		background: rgba(0, 0, 0, 0.3);
-		border-radius: 12px;
-		padding: 20px;
-		transition: all 0.3s ease;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.animation-card:hover {
-		transform: translateY(-5px);
-		border-color: rgba(255, 255, 255, 0.3);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-	}
-
-	.card-info {
-		margin-top: 15px;
-		text-align: center;
-	}
-
-	.card-info h3 {
-		font-size: 1rem;
-		letter-spacing: 1px;
-		margin-bottom: 8px;
-		text-transform: uppercase;
-	}
-
-	.card-info p {
-		font-size: 0.8rem;
-		opacity: 0.7;
-		line-height: 1.4;
-		max-width: 200px;
-	}
-
-	.controls-info {
-		position: fixed;
-		bottom: 20px;
-		left: 50%;
-		transform: translateX(-50%);
-		background: rgba(0, 0, 0, 0.8);
-		padding: 12px 20px;
-		border-radius: 25px;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		backdrop-filter: blur(10px);
-		font-size: 0.85rem;
-		opacity: 0.9;
-		animation: fadeInUp 0.5s ease;
-	}
-
-	@keyframes fadeInUp {
+	@keyframes fade-in-up {
 		from {
 			opacity: 0;
 			transform: translateX(-50%) translateY(20px);
 		}
 		to {
-			opacity: 0.9;
+			opacity: 1;
 			transform: translateX(-50%) translateY(0);
 		}
 	}
 
-	@media (max-width: 768px) {
-		.page-header h1 {
-			font-size: 2rem;
-		}
-
-		.animations-grid {
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 20px;
-		}
-
-		.controls-info {
-			bottom: 10px;
-			left: 10px;
-			right: 10px;
-			transform: none;
-			text-align: center;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.animations-grid {
-			grid-template-columns: 1fr;
-		}
+	.animate-fade-in-up {
+		animation: fade-in-up 0.5s ease-out;
 	}
 </style>

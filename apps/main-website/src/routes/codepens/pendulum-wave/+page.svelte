@@ -1,12 +1,12 @@
 <script lang="ts">
-	import RadialPulse from '$lib/components/RadialPulse.svelte';
+	import PendulumWave from '$lib/components/PendulumWave.svelte';
 </script>
 
 <svelte:head>
-	<title>Radial Pulse Animation - Interactive Canvas</title>
+	<title>Pendulum Wave Animation - Interactive Canvas</title>
 	<meta
 		name="description"
-		content="Interactive radial pulse animation with real-time parameter controls using Tweakpane"
+		content="Interactive pendulum wave animation with synchronized pendulum motion and physics"
 	/>
 </svelte:head>
 
@@ -17,9 +17,9 @@
 			<h1
 				class="mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-3xl font-bold tracking-wide text-transparent lg:text-4xl"
 			>
-				Radial Pulse
+				Pendulum Wave
 			</h1>
-			<p class="mb-2 text-lg text-gray-300">Rings of dots pulsing outward from center</p>
+			<p class="mb-2 text-lg text-gray-300">Synchronized pendulum motion</p>
 			<p class="text-sm italic text-gray-500">
 				Use the control panel on the right to adjust animation parameters in real-time
 			</p>
@@ -28,7 +28,7 @@
 		<!-- Animation Container -->
 		<main class="flex justify-center">
 			<div class="rounded-xl border border-white/20 bg-black/40 p-8 shadow-2xl backdrop-blur-sm">
-				<RadialPulse showControls={true} width={400} height={400} />
+				<PendulumWave showControls={true} width={400} height={400} />
 			</div>
 		</main>
 
@@ -39,23 +39,23 @@
 				<div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
 					<h3 class="mb-3 text-lg font-semibold text-white">Animation Properties</h3>
 					<ul class="space-y-2 text-sm text-gray-300">
-						<li><strong>Speed:</strong> Configurable pulse frequency</li>
-						<li><strong>Ring Count:</strong> Number of concentric pulse rings</li>
-						<li><strong>Dots Per Ring:</strong> Density of dots in each ring</li>
-						<li><strong>Max Radius:</strong> Maximum expansion radius</li>
-						<li><strong>Dot Size:</strong> Base size of individual dots</li>
-						<li><strong>Opacity:</strong> Overall transparency control</li>
+						<li><strong>Pendulum Count:</strong> Number of synchronized pendulums</li>
+						<li><strong>Base Frequency:</strong> Oscillation frequency</li>
+						<li><strong>Pendulum Length:</strong> Length of each pendulum</li>
+						<li><strong>Max Angle:</strong> Maximum swing angle in degrees</li>
+						<li><strong>Reference Line:</strong> Toggle the pivot reference line</li>
+						<li><strong>Bob Size:</strong> Size of pendulum weights</li>
 					</ul>
 				</div>
 
 				<div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
 					<h3 class="mb-3 text-lg font-semibold text-white">Use Cases</h3>
 					<ul class="space-y-2 text-sm text-gray-300">
-						<li>• Loading indicators</li>
-						<li>• Audio visualizations</li>
-						<li>• Interactive backgrounds</li>
-						<li>• Data visualization accents</li>
-						<li>• Gaming particle effects</li>
+						<li>• Physics demonstrations</li>
+						<li>• Metronome visualizations</li>
+						<li>• Hypnotic patterns</li>
+						<li>• Educational simulations</li>
+						<li>• Relaxation animations</li>
 					</ul>
 				</div>
 			</div>
